@@ -1,0 +1,45 @@
+{
+  "messages": [
+    {
+      "timestamp": "11:20:50",
+      "speaker": "Person A",
+      "text": "Oh, my God. That's fully my fault.",
+      "confidence": 0.46975961327552795
+    },
+    {
+      "timestamp": "11:20:54",
+      "speaker": "Person A",
+      "text": "I would put my damn cursor in the chat.",
+      "confidence": 0.45715391635894775
+    },
+    {
+      "timestamp": "11:20:58",
+      "speaker": "Person A",
+      "text": "Saying one these other phrases.",
+      "confidence": 0.5606039762496948
+    },
+    {
+      "timestamp": "11:21:05",
+      "speaker": "Person A",
+      "text": "That picks it up. What are the other ones like? Starting. I'm starting crushing.",
+      "confidence": 0.6134769916534424
+    },
+    {
+      "timestamp": "11:21:10",
+      "speaker": "Person A",
+      "text": "Starting compressions.",
+      "confidence": 0.3286844789981842
+    },
+    {
+      "timestamp": "11:21:17",
+      "speaker": "Person A",
+      "text": "Just so that we have options.",
+      "confidence": 0.6456238031387329
+    }
+  ],
+  "speaker_statistics": {
+    "Unknown": 43
+  },
+  "speaker_names": {},
+  "recording_date": "2025-05-18 11:21:20"
+}

@@ -78,7 +78,7 @@ cpr_start_phrases = [
 	"starting cycles now"
 ]
 
-FUZZY_THRESHOLD = 80  # Adjust as needed for sensitivity
+FUZZY_THRESHOLD = 90  # Adjust as needed for sensitivity
 
 def cancel_cpr_timer():
 	global cpr_timer_task
