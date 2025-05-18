@@ -68,53 +68,6 @@ def save_audio_file(audio_chunks, base_filename="recording"):
 	# Return all filenames
 	return wav_filename, m4a_filename, transcript_filename
 
-def process_with_speaker_diarization(audio_file):
-	try:
-		# Enhanced configuration for better speaker diarization
-		config = aai.TranscriptionConfig(
-			speaker_labels=True,
-			diarization=True,
-			speakers_expected=num_speakers,
-			min_speakers=MIN_SPEAKERS,
-			max_speakers=MAX_SPEAKERS,
-			diarization_threshold=0.5,  # Higher threshold for more confident speaker separation
-			audio_duration_threshold=0.5,  # Minimum duration for speaker segments
-			speaker_switch_penalty=0.5  # Penalty for rapid speaker switches
-		)
-		
-		print(f"Processing with enhanced diarization config: {config}")
-		
-		# Create transcriber and transcribe the audio file
-		transcriber = aai.Transcriber()
-		transcript = transcriber.transcribe(
-			audio_file,
-			config=config
-		)
-
-		# Process utterances with enhanced speaker tracking
-		messages = []
-		current_speaker = None
-		for utterance in transcript.utterances:
-			# Only change speakers if confidence is high enough
-			if utterance.confidence > 0.5:
-				current_speaker = utterance.speaker
-			
-			speaker_label = current_speaker if current_speaker else utterance.speaker
-			
-			message = {
-				'timestamp': datetime.now().strftime("%H:%M:%S"),
-				'speaker': f"Speaker {speaker_label}",
-				'text': utterance.text,
-				'confidence': utterance.confidence
-			}
-			messages.append(message)
-			print(f"Diarization: Speaker {speaker_label} (conf: {utterance.confidence}): {utterance.text}")
-		
-		return messages
-	except Exception as e:
-		print(f"Diarization Error: {str(e)}")
-		st.error(f"Error in speaker diarization: {e}")
-		return []
 
 def start_listening():
 	st.session_state['text'] = []
@@ -142,12 +95,6 @@ def stop_listening():
 			timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 			base_filename = f"recording_{timestamp}"
 			wav_file, m4a_file, transcript_file = save_audio_file(st.session_state['audio_chunks'], base_filename)
-			
-			# Process with speaker diarization using the WAV file
-			messages = process_with_speaker_diarization(wav_file)
-			# Update transcript with speaker information
-			st.session_state['text'].extend(messages)
-			
 			# Save transcript to JSON file
 			save_transcript(transcript_file, st.session_state['text'], st.session_state['speakers'])
 			
@@ -194,7 +141,7 @@ def get_speaker_name(speaker_id):
 	
 	return f"Person {st.session_state['speaker_letters'][speaker_id]}"
 
-st.title('Code Blue: Real-time Voice Recognition')
+st.title('Code Blue')
 
 # Configuration sidebar
 with st.sidebar:
@@ -204,7 +151,7 @@ with st.sidebar:
 							max_value=MAX_SPEAKERS, 
 							value=MIN_SPEAKERS,
 							help="Select the number of distinct voices you expect in the recording")
-	st.info(f"Currently configured to detect between {MIN_SPEAKERS} and {num_speakers} different speakers")
+	st.info(f"Currently configured to detect between {MIN_SPEAKERS} and {MAX_SPEAKERS} different speakers")
 
 # Recording controls
 col1, col2 = st.columns(2)
