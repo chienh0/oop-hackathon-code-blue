@@ -10,9 +10,14 @@ import wave
 import assemblyai as aai
 import os
 import re
+from pydub import AudioSegment
 
 # Configure AssemblyAI
 aai.settings.api_key = auth_key
+
+# Configure recordings directory
+RECORDINGS_DIR = "recordings"
+os.makedirs(RECORDINGS_DIR, exist_ok=True)
 
 # Initialize session state
 if 'text' not in st.session_state:
@@ -39,14 +44,23 @@ stream = p.open(
 	frames_per_buffer=FRAMES_PER_BUFFER
 )
 
-def save_audio_file(audio_chunks, filename="temp_recording.wav"):
-	# Save audio chunks to WAV file
-	with wave.open(filename, 'wb') as wf:
+def save_audio_file(audio_chunks, base_filename="recording"):
+	# Save audio chunks to WAV file first
+	wav_filename = os.path.join(RECORDINGS_DIR, f"{base_filename}.wav")
+	m4a_filename = os.path.join(RECORDINGS_DIR, f"{base_filename}.m4a")
+	
+	with wave.open(wav_filename, 'wb') as wf:
 		wf.setnchannels(CHANNELS)
 		wf.setsampwidth(p.get_sample_size(FORMAT))
 		wf.setframerate(RATE)
 		wf.writeframes(b''.join(audio_chunks))
-	return filename
+	
+	# Convert to M4A using pydub
+	audio = AudioSegment.from_wav(wav_filename)
+	audio.export(m4a_filename, format="ipod")  # ipod format = M4A
+	
+	# Return both filenames
+	return wav_filename, m4a_filename
 
 def process_with_speaker_diarization(audio_file):
 	try:
@@ -85,14 +99,19 @@ def stop_listening():
 	st.session_state['run'] = False
 	if st.session_state['audio_chunks']:
 		with st.spinner('Processing audio for speaker identification...'):
-			# Save audio to file
-			audio_file = save_audio_file(st.session_state['audio_chunks'])
-			# Process with speaker diarization
-			messages = process_with_speaker_diarization(audio_file)
+			# Save audio to files
+			timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+			base_filename = f"recording_{timestamp}"
+			wav_file, m4a_file = save_audio_file(st.session_state['audio_chunks'], base_filename)
+			
+			# Process with speaker diarization using the WAV file
+			messages = process_with_speaker_diarization(wav_file)
 			# Update transcript with speaker information
 			st.session_state['text'].extend(messages)
-			# Clean up temporary file
-			os.remove(audio_file)
+			
+			# Clean up WAV file but keep M4A
+			os.remove(wav_file)
+			st.success(f"Recording saved as {m4a_file}")
 
 def get_next_letter():
 	"""Get next available letter (A, B, C, etc.)"""

@@ -1,0 +1,5 @@
+streamlit>=1.24.0
+pyaudio>=0.2.13
+websockets>=10.4
+assemblyai>=0.17.0
+pydub>=0.25.1 
