@@ -354,8 +354,7 @@ async def send_receive():
 							# Update displays with confidence scores
 							messages_display = ""
 							for msg in st.session_state['text'][-10:]:  # Show last 10 messages
-								conf_str = f" (Confidence: {msg.get('confidence', 0):.2f})" if msg.get('confidence') else ""
-								messages_display += f"[{msg['timestamp']}] **{msg['speaker']}**{conf_str}: {msg['text']}\n\n"
+								messages_display += f"[{msg['timestamp']}]: {msg['text']}\n\n"
 							transcript_area.markdown(messages_display)
 							
 							# Show identified speakers with more details
