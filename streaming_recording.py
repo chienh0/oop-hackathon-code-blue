@@ -102,8 +102,8 @@ async def cpr_timer(triggered_by_phrase=None):
 	for remaining in range(total_seconds, 0, -1):
 		mins, secs = divmod(remaining, 60)
 		timer_area.markdown(f"## ⏳ CPR Timer: {mins:02d}:{secs:02d}")
-		if remaining == 90 and triggered_by_phrase:
-			speak_text_streamlit("30 seconds until next pulse check.")
+		if remaining == 100 and triggered_by_phrase:
+			speak_text_streamlit("20 seconds until next pulse check.")
 		await asyncio.sleep(1)
 	timer_area.markdown("## ⏰ 2 minutes up! Time for pulse check.")
 	del st.session_state['cpr_timer_display']

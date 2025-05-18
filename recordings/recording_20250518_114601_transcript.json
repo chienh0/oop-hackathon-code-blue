@@ -1,0 +1,81 @@
+{
+  "messages": [
+    {
+      "timestamp": "11:44:51",
+      "speaker": "Person A",
+      "text": "Me see if I can.",
+      "confidence": 0.4632991850376129
+    },
+    {
+      "timestamp": "11:44:53",
+      "speaker": "Person A",
+      "text": "Pause where we need to pause.",
+      "confidence": 0.4077214002609253
+    },
+    {
+      "timestamp": "11:45:08",
+      "speaker": "Person A",
+      "text": "All right. Cameron. Cameron. Can I get some help in here, please? Grab the code card. I'm going to check for a poll. He's a sicily on the monitor. There's no pulse. It's a code blue.",
+      "confidence": 0.546947717666626
+    },
+    {
+      "timestamp": "11:45:11",
+      "speaker": "Person A",
+      "text": "Hit the button, cpr started.",
+      "confidence": 0.6731783151626587
+    },
+    {
+      "timestamp": "11:45:30",
+      "speaker": "Person A",
+      "text": "Cocarts here. I'm the med nurse. Hey, it's Kla. I'm. The PA code leader. Hey, this is Jin. I'm on airway. Hey, guys, this is. A 61 year old male here for chest pain. He has a history of CaD hypertension or hyperlipidemia. He just went unresponsive. Monitor shows a sicily.",
+      "confidence": 0.5270557403564453
+    },
+    {
+      "timestamp": "11:45:41",
+      "speaker": "Person A",
+      "text": "Rohit. Let's get 1 epi. Hey. 20 seconds until next pulse check. Is that. Too quick.",
+      "confidence": 0.5645241737365723
+    },
+    {
+      "timestamp": "11:45:45",
+      "speaker": "Person A",
+      "text": "No, because by the time the 22nd hits.",
+      "confidence": 0.6504383683204651
+    },
+    {
+      "timestamp": "11:45:47",
+      "speaker": "Person A",
+      "text": "Kayla will say.",
+      "confidence": 0.2563837170600891
+    },
+    {
+      "timestamp": "11:45:49",
+      "speaker": "Person A",
+      "text": "Let's do a rhythm check.",
+      "confidence": 0.06837376207113266
+    },
+    {
+      "timestamp": "11:45:52",
+      "speaker": "Person A",
+      "text": "Okay. Yeah. So that's good.",
+      "confidence": 0.32989102602005005
+    },
+    {
+      "timestamp": "11:45:54",
+      "speaker": "Person A",
+      "text": "It's a little bit better.",
+      "confidence": 0.3822009861469269
+    },
+    {
+      "timestamp": "11:45:59",
+      "speaker": "Person A",
+      "text": "All right, let's do the run through. Cool.",
+      "confidence": 0.5261617302894592
+    }
+  ],
+  "speaker_statistics": {
+    "Unknown": 153
+  },
+  "speaker_names": {},
+  "recording_date": "2025-05-18 11:46:01"
+}
