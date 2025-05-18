@@ -1,14 +1,65 @@
-# Real-time transcription from microphone
+# Code Blue: Real-time Voice Recognition with Speaker Detection
 
-Transcribing in real-time is a super skill only court reporters can brag about. But luckily, we don’t need to learn how to type fast to get transcriptions of audio quickly. Thanks to Assembly AI’s real-time speech recognition end point, it is very simple to set up a python script that can listen for audio and turn it to text.
+This application provides real-time speech transcription with speaker diarization using AssemblyAI's API. The app can identify different speakers, detect speaker names from introductions, and save recordings for later use.
 
-In this video, we will see how to create this script on Python with the help of pyaudio, web sockets and asynchronous functions. The app will have the power to listen to audio input through a microphone and display the transcription in real-time. We will integrate this code into a simple Streamlit application to showcase the real-time speech recognition with a touch of interactivity.
+## Features
 
-👍 If you’d like to use this code, don’t forget to get your own AssemblyAI API token for free at [assemblyai.com](https://www.assemblyai.com?utm_source=youtube&utm_medium=referral&utm_campaign=channel_assemblyai)
+- Real-time speech-to-text transcription
+- Speaker diarization (differentiating between speakers)
+- Automatic speaker name detection from introductions
+- Recording storage in M4A format
+- Word count tracking per speaker
+- Interactive Streamlit interface
 
-🎥 Find the video tutorial for this repo here: [Real Time Speech Recognition with Python](https://www.assemblyai.com/blog/real-time-speech-recognition-with-python/)
-📝 Find the written form of the tutorial here: [Real Time Speech Recognition with Python](https://www.assemblyai.com/blog/real-time-speech-recognition-with-python/)
+## Setup
 
-Dependencies:
+1. Get your AssemblyAI API token for free at [assemblyai.com](https://www.assemblyai.com)
+2. Create a `configure.py` file with your API key:
+   ```python
+   auth_key = "your-api-key-here"
+   ```
+3. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Dependencies
+* streamlit
 * pyaudio
 * websockets
+* assemblyai
+* pydub
+
+## Usage
+
+1. Run the Streamlit app:
+   ```bash
+   streamlit run live_recording.py
+   ```
+
+2. Use the interface to:
+   - Click "Start Recording" to begin transcription
+   - Speak naturally - the app will automatically detect different speakers
+   - Introduce yourself with phrases like "My name is [Name]" for automatic name detection
+   - Click "Stop Recording" to end the session
+
+3. Recordings are automatically saved in the `recordings` folder with timestamp-based names:
+   - Format: `recording_YYYYMMDD_HHMMSS.m4a`
+   - Example: `recording_20240315_143045.m4a`
+
+## Features in Detail
+
+### Speaker Detection
+- Automatically assigns letters (A, B, C, etc.) to different speakers
+- Updates to real names when speakers introduce themselves
+- Tracks word count per speaker
+
+### Recording Management
+- Saves high-quality M4A audio files
+- Organizes recordings in a dedicated 'recordings' directory
+- Timestamps each recording for easy reference
+
+### Real-time Display
+- Shows last 10 messages in conversation
+- Displays speaker statistics
+- Provides immediate feedback on speaker identification
