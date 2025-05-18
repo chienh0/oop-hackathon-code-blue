@@ -1,0 +1,334 @@
+{
+  "messages": [
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Hi, Daniel. Just gonna get your blood pressure again. Daniel? Daniel, Can I get some help, please? Daniel, are you with me? Hello? Hi, Kirsty. Oh, it's Daniel. I think he's unresponsive. Chest pain for an hour. I just came in to do his observations, but he's not responding to. You're not getting anything from the nerve. Daniel? Daniel, let's be in here. One of the doctors. Daniel? No. Okay, nothing in his airway. Opening up his airway. And look, listen, feel. 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. Okay, he's in cardiac arrest. If I can have the set, please. Kirsty, can you please put out a 22? 22 out of cardiac arrest. Call down to resource, thank you. And if you can come back with a crash trolley. Can I have a hand in here, please? Hello, Mo. Okay, this is 61 year old chap, came in with chest day and he's having cardiac arrest. If I can get you to take over on the chest from me, please. As soon as you're ready. Okay, attach the pads. Thank you very much. You ready to take over? Okay, let's swap over.",
+      "confidence": 0.9280063
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Hiya.",
+      "confidence": 0.7473958
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Hello. We've got cardiac arrest. Can I ask you to be scribed, please? Yes. And anaesthetics, Is that Sergio? Sergio, can you take the airway, please?",
+      "confidence": 0.9425377
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Team leader, we have the defibrillator attached.",
+      "confidence": 0.9798177
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Fantastic, thank you very much. If we can please do a rhythm check.",
+      "confidence": 0.99864596
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Okay, pause, please. You've got the F on the screen.",
+      "confidence": 0.9431397
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Okay, so continue with chest compressions, please.",
+      "confidence": 0.9687616
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Okay, folks, I'm going to charge to 150 most. Stay doing chest compress. Sergio, can you clear the oxygen for me? And everyone else, stand clear. Okay, keep going on the chest. We're Charleston, 150 mo. Stand back, please. And shock delivered back of the chest.",
+      "confidence": 0.9355086
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Okay, fantastic. Right, Percy, you're going to be drug nurse. Can you please get a litre of normal saline and attach it to the patient? Thank you very much. Run it straight through. All right, and who are you?",
+      "confidence": 0.94886196
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Sorry, Simon for today.",
+      "confidence": 0.78877765
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Fantastic. Okay, I'm Fiona, I'm one of the emergency registrars. If I can get you to cycle in and rotate to CPR with your own, please. All right, so as soon as he's tired, if I can get you cycling. Okay, anesthetics, Can I get you to secure the airway, please, and confirm once you've done it?",
+      "confidence": 0.94605607
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "Yeah, sure. I'll put LMA down an eye.",
+      "confidence": 0.92389935
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Joel, IV fluids are running. One litre of normal saline. Fantastic, thank you. All right, and our time's coming up to One minute. We've still got another minute of CPR to be done there. Simon, can I get you to swap in with Mo, please? Mo, can I get you to secure another IV access and send off a ppg? Bring it back. The result, please. All right, so let's just start running through our four Hs and four Ts. Okay, so hypoxia. Sergio, are you happy with the airway?",
+      "confidence": 0.93787664
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "The LMA is just down.",
+      "confidence": 0.992041
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "LMA is just down. How is he to bag?",
+      "confidence": 0.95751953
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "Yeah, he's all right.",
+      "confidence": 0.93774414
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "He's all right to bag there. And are you ventilating with 100 oxygen?",
+      "confidence": 0.9136159
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "100 oxygen via the bag valve mass.",
+      "confidence": 0.95377326
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Fantastic. All right, so, okay, so we're treating any hypoxia. Hypovolemia. We've got a liter of normal saline running through. Kirsty, can I just get you to confirm? It's running straight through. Fantastic. You can bring me back the result, please. And we'll check our hypo and hyperkalemia with that. Excuse me, anaesthetics. Sorry, can you just share with the rest of the team, please?",
+      "confidence": 0.9666953
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "Sorry, the Igel is down, so I'm just saying we could go asynchronous.",
+      "confidence": 0.94224507
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Fantastic. All right, so continuous cpr, please. We've got a secure airway. All right, so where were we? So we talked about hypoxia, hypovolemia. We have talked about our hypo hyperkalemia. We're getting an ABG off there as well. Okay. And hypothermia Unlikely, given that he's been in hospital for the last couple of hours and he doesn't feel cold. Fantastic. Where are we on time?",
+      "confidence": 0.95608795
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Okay, we're about 10 seconds out from the next 2 minutes.",
+      "confidence": 0.99358577
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "10 seconds out from the next 2 Minutes. Fantastic. And we've got an ABG here. All right.",
+      "confidence": 0.9371413
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Okay, so we're now 5 seconds out from the rhythm.",
+      "confidence": 0.88642234
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Okay, let's stop for a pulse check and then we'll talk about the abg.",
+      "confidence": 0.993879
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Okay, pause the chest compressions.",
+      "confidence": 0.99283856
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Yep.",
+      "confidence": 0.767334
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Okay, you've got a rhythm there. And you.",
+      "confidence": 0.92446697
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "And we've got a pulse. Fantastic. All right, Sergey, if you can continue to ventilate him. Okay, guys, we have got Ross. Now we're going to need to move on to our post resuscitation care. Our ABG shows a pH of 7.2. Our CO2 is 6.7, PO2 is 43, bicarb 18. We've got a potassium of 4.3 and a lactate of 6. All right, so we're going to need to secure the airway there. We're going to get a propofol infusion running and we're going to need to give him some paralysis as well. All right, we're going to need to get a chest X ray and we're going to need to get an abg. Mo, are you happy to put an arterial line and take an abg? Yeah. Fantastic. If I can get you onto that.",
+      "confidence": 0.9611176
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Should we start the vital sign to get a blood pressure?",
+      "confidence": 0.91909325
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Yes, please. Kirsty, can I get you to attach some monitoring? Sure.",
+      "confidence": 0.97492135
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "Can we get an ECG?",
+      "confidence": 0.9363281
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Yeah, we're going to need to get a 12 lead ECG once we've got some monitoring attached there. We're also going to need to think about speaking to cardiology as well, because we're going to need to talk about whether he's going to need an echo and whether he's going to need some pci. Okay. Anything else that I'm missing here? Anything else we need to think about? We didn't run through our 4T, so we're just going to talk about the 4T's now, toxins, I think, is very unlikely. We've got no evidence of that. I think our most likely cause here is thrombosis, because given this guy came in with query acs. So I think we need to think about here whether we need to be discussing the cardiology and talking about the cath lab. Yeah, I think so. Tamponade again. Something we need to bear in mind that we've got Ross now. Yep. We can do a quick, fast scan. That's absolutely fine. We'll get the ultrasound machine in terms.",
+      "confidence": 0.9679014
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "Of tensioning, easy to bagless, needs good entry.",
+      "confidence": 0.9001363
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Fine.",
+      "confidence": 0.81640625
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "So seal is good, so I'm happy with the top end.",
+      "confidence": 0.83236414
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Okay, can we just touch on the screen to get blood pressure, please? Yeah. Propofol infusion and what else? A protocol infusion. And if we can get 100 of rock uranium, please.",
+      "confidence": 0.9515285
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "I got the drugs drawn up.",
+      "confidence": 0.9517144
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Oh, you got some drugs? We got some drugs drawn up, actually. Okay. And Simon, could I ask you to go down and see to our radiographers down the corridor and get them to come up?",
+      "confidence": 0.8878332
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "Just give 2mg and come back and.",
+      "confidence": 0.87946486
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Let me know when you've done that. Thank you. No. Are you alone? Fantastic.",
+      "confidence": 0.8942028
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "Yeah, just not yet because we haven't set it for the tube, but paralyze him and then set it for the tube.",
+      "confidence": 0.8782552
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Yeah. So I think, you know, I think we need to secure a defensive airway. This guy's destination. Is it you ET tube?",
+      "confidence": 0.8920244
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "What's I got the size six. We got a tie, and. No, I think it'll be all right, but have it ready anyway. The ring of school suction would be useful. And we have the extension here.",
+      "confidence": 0.87431264
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Okay, so who's going to be your airway assistant? Sergio.",
+      "confidence": 0.97957355
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "So Kirsty can help you with that.",
+      "confidence": 0.94975936
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Okay, so Kirsten can be your airway assistant, and Dan can get cricoids, and I can give drugs.",
+      "confidence": 0.93041766
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Great.",
+      "confidence": 0.89160156
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "All right. Mo's just getting all sorts of different arterial lines, and sign of our medical student is.",
+      "confidence": 0.80159956
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker C",
+      "text": "I'd just like to see his sass before.",
+      "confidence": 0.8348338
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Yeah, it's on the other side. But he does feel a little bit cool peripherally at the moment, so he might not be getting a good trace.",
+      "confidence": 0.9637421
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "Can we just check for a pulse, please?",
+      "confidence": 0.9983317
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker B",
+      "text": "Got a pulse.",
+      "confidence": 0.82910156
+    },
+    {
+      "timestamp": "19:44:57",
+      "speaker": "Speaker A",
+      "text": "We got a pulse. Fantastic. We got a central pulse. Great.",
+      "confidence": 0.90515876
+    }
+  ],
+  "speaker_statistics": {
+    "A": 1106,
+    "B": 144,
+    "C": 148
+  },
+  "recording_date": "2025-05-17 19:44:57"
+}

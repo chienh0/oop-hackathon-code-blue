@@ -12,22 +12,10 @@ RECORDINGS_DIR = "recordings"
 AUDIO_FILE = os.path.join(RECORDINGS_DIR, "code_blue_recording.mp3")
 TRANSCRIPT_FILE = os.path.join(RECORDINGS_DIR, "code_blue_recording_transcript.json")
 
-# Speaker diarization settings
-MIN_SPEAKERS = 5
-MAX_SPEAKERS = 9
-EXPECTED_SPEAKERS = MIN_SPEAKERS  # You can change this as needed
-
 def process_with_speaker_diarization(audio_file):
     try:
         config = aai.TranscriptionConfig(
             speaker_labels=True,
-            diarization=True,
-            speakers_expected=EXPECTED_SPEAKERS,
-            min_speakers=MIN_SPEAKERS,
-            max_speakers=MAX_SPEAKERS,
-            diarization_threshold=0.5,
-            audio_duration_threshold=0.5,
-            speaker_switch_penalty=0.5
         )
         print(f"Processing {audio_file} with diarization config: {config}")
         transcriber = aai.Transcriber()
@@ -71,4 +59,4 @@ def main():
     save_transcript(TRANSCRIPT_FILE, messages, speaker_stats)
 
 if __name__ == "__main__":
-    main() 
+    main()
