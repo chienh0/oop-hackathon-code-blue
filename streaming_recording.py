@@ -12,6 +12,9 @@ import os
 import re
 from pydub import AudioSegment
 import time
+import yaml
+from gtts import gTTS
+import io
 
 # Configure AssemblyAI
 aai.settings.api_key = auth_key
@@ -33,6 +36,7 @@ if 'text' not in st.session_state:
 	st.session_state['voice_names'] = {}  # Map speaker IDs to detected names
 	st.session_state['speaker_letters'] = {}  # Map speaker IDs to letters (A, B, C)
 	st.session_state['next_letter'] = 0  # Track next available letter
+	st.session_state.setdefault('detected_events', [])
 
 FRAMES_PER_BUFFER = 3200
 FORMAT = pyaudio.paInt16
@@ -48,6 +52,58 @@ stream = p.open(
 	input=True,
 	frames_per_buffer=FRAMES_PER_BUFFER
 )
+
+# Load resuscitation event utterances from YAML
+with open('resuscitation_events.yaml', 'r') as f:
+	event_map = yaml.safe_load(f)
+utterance_to_event = {}
+for event, phrases in event_map.items():
+	for phrase in phrases:
+		utterance_to_event[phrase.lower()] = event
+
+# Timer state
+cpr_timer_task = None
+cpr_timer_display = None
+
+# List of CPR start phrases (lowercased for matching)
+cpr_start_phrases = [
+	"chest compressions initiated",
+	"i'm on compressions",
+	"cpr started",
+	"starting compressions",
+	"begin cpr now",
+	"compressions going",
+	"starting cycles now"
+]
+
+def cancel_cpr_timer():
+	global cpr_timer_task
+	if cpr_timer_task and not cpr_timer_task.done():
+		cpr_timer_task.cancel()
+		cpr_timer_task = None
+	# Clear the timer display
+	if 'cpr_timer_display' in st.session_state:
+		st.session_state['cpr_timer_display'].empty()
+		del st.session_state['cpr_timer_display']
+
+async def cpr_timer(triggered_by_phrase=None):
+	# Create or get the timer display area
+	if 'cpr_timer_display' not in st.session_state:
+		st.session_state['cpr_timer_display'] = st.empty()
+	timer_area = st.session_state['cpr_timer_display']
+	total_seconds = 120
+	for remaining in range(total_seconds, 0, -1):
+		mins, secs = divmod(remaining, 60)
+		timer_area.markdown(f"## ⏳ CPR Timer: {mins:02d}:{secs:02d}")
+		if remaining == 60 and triggered_by_phrase:
+			# Only speak if triggered by a CPR start phrase
+			speak_text_streamlit("It's been one minute, next pulse check in one minute.")
+		await asyncio.sleep(1)
+	timer_area.markdown("## ⏰ 2 minutes up! Time for pulse check.")
+	# Optionally, speak at 2 minutes
+	# speak_text_streamlit("2 minutes up! Time for pulse check.")
+	# Remove timer display from session state
+	del st.session_state['cpr_timer_display']
 
 def save_audio_file(audio_chunks, base_filename="recording"):
 	# Save audio chunks to WAV file first
@@ -141,6 +197,13 @@ def get_speaker_name(speaker_id):
 	
 	return f"Person {st.session_state['speaker_letters'][speaker_id]}"
 
+def speak_text_streamlit(text):
+	tts = gTTS(text)
+	fp = io.BytesIO()
+	tts.write_to_fp(fp)
+	fp.seek(0)
+	st.audio(fp, format='audio/mp3')
+
 st.title('Code Blue')
 
 # Configuration sidebar
@@ -179,6 +242,7 @@ headers = [
 ]
 
 async def send_receive():
+	global cpr_timer_task
 	try:
 		async with websockets.connect(
 			URL,
@@ -205,6 +269,7 @@ async def send_receive():
 					await asyncio.sleep(0.01)
 
 			async def receive():
+				global cpr_timer_task
 				current_speaker = None
 				speaker_change_threshold = 0.2  # More sensitive threshold for speaker changes
 				min_segment_duration = 1.0  # Minimum duration (seconds) before allowing speaker change
@@ -260,6 +325,23 @@ async def send_receive():
 								st.session_state['speakers'][effective_speaker] = 0
 							st.session_state['speakers'][effective_speaker] += len(text.split())
 							
+							# Event detection logic
+							detected = False
+							for phrase, event in utterance_to_event.items():
+								if phrase in text.lower():
+									st.session_state['detected_events'].append({
+										'timestamp': datetime.now().strftime("%H:%M:%S"),
+										'event': event,
+										'phrase': phrase,
+										'text': text
+									})
+									detected = True
+									# CPR timer logic: trigger if any CPR start phrase is contained in the text
+									if event == 'CPR_START' and any(start_phrase in text.lower() for start_phrase in cpr_start_phrases):
+										print(f"CPR timer triggered by: {text}")
+										cancel_cpr_timer()
+										cpr_timer_task = asyncio.create_task(cpr_timer(triggered_by_phrase=text.lower()))
+
 							# Create message with confidence score
 							message = {
 								'timestamp': datetime.now().strftime("%H:%M:%S"),
@@ -281,6 +363,11 @@ async def send_receive():
 							for spk_id, words in st.session_state['speakers'].items():
 								name = get_speaker_name(spk_id)
 								info_text += f"{name}: {words} words spoken\n"
+							# Show detected events
+							if st.session_state['detected_events']:
+								info_text += "\n---\n### Detected Resuscitation Events\n"
+								for evt in st.session_state['detected_events'][-5:]:
+									info_text += f"[{evt['timestamp']}] **{evt['event']}**: '{evt['phrase']}' in '{evt['text']}'\n"
 							speaker_info.markdown(info_text)
 
 					except Exception as e:
@@ -294,3 +381,7 @@ async def send_receive():
 
 if st.session_state['run']:
 	asyncio.run(send_receive())
+
+# Add a button to test the 1-minute announcement
+if st.button("Test Announcement"):
+	speak_text_streamlit("It's been one minute, next pulse check in one minute")
