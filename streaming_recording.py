@@ -11,6 +11,7 @@ import assemblyai as aai
 import os
 import re
 from pydub import AudioSegment
+import time
 
 # Configure AssemblyAI
 aai.settings.api_key = auth_key
@@ -69,8 +70,19 @@ def save_audio_file(audio_chunks, base_filename="recording"):
 
 def process_with_speaker_diarization(audio_file):
 	try:
-		# Configure transcription with speaker diarization
-		config = aai.TranscriptionConfig(speaker_labels=True)
+		# Enhanced configuration for better speaker diarization
+		config = aai.TranscriptionConfig(
+			speaker_labels=True,
+			diarization=True,
+			speakers_expected=num_speakers,
+			min_speakers=MIN_SPEAKERS,
+			max_speakers=MAX_SPEAKERS,
+			diarization_threshold=0.5,  # Higher threshold for more confident speaker separation
+			audio_duration_threshold=0.5,  # Minimum duration for speaker segments
+			speaker_switch_penalty=0.5  # Penalty for rapid speaker switches
+		)
+		
+		print(f"Processing with enhanced diarization config: {config}")
 		
 		# Create transcriber and transcribe the audio file
 		transcriber = aai.Transcriber()
@@ -79,18 +91,28 @@ def process_with_speaker_diarization(audio_file):
 			config=config
 		)
 
-		# Process and display utterances with speaker labels
+		# Process utterances with enhanced speaker tracking
 		messages = []
+		current_speaker = None
 		for utterance in transcript.utterances:
+			# Only change speakers if confidence is high enough
+			if utterance.confidence > 0.5:
+				current_speaker = utterance.speaker
+			
+			speaker_label = current_speaker if current_speaker else utterance.speaker
+			
 			message = {
 				'timestamp': datetime.now().strftime("%H:%M:%S"),
-				'speaker': f"Speaker {utterance.speaker}",
-				'text': utterance.text
+				'speaker': f"Speaker {speaker_label}",
+				'text': utterance.text,
+				'confidence': utterance.confidence
 			}
 			messages.append(message)
+			print(f"Diarization: Speaker {speaker_label} (conf: {utterance.confidence}): {utterance.text}")
 		
 		return messages
 	except Exception as e:
+		print(f"Diarization Error: {str(e)}")
 		st.error(f"Error in speaker diarization: {e}")
 		return []
 
@@ -195,14 +217,15 @@ with col2:
 transcript_area = st.empty()
 speaker_info = st.empty()
 
-# Updated URL with enhanced speaker diarization parameters and dynamic speaker count
+# Updated URL with more specific diarization parameters
 URL = (f"wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000"
 		f"&speaker_labels=true"
 		f"&diarization=true"
 		f"&speakers_expected={num_speakers}"
 		f"&diarization_min_speakers={MIN_SPEAKERS}"
 		f"&diarization_max_speakers={MAX_SPEAKERS}"
-		f"&speaker_threshold=0.3")
+		f"&speaker_threshold=0.2"
+		f"&diarization_threshold=0.5")
 
 headers = [
 	("Authorization", auth_key)
@@ -236,7 +259,9 @@ async def send_receive():
 
 			async def receive():
 				current_speaker = None
-				speaker_change_threshold = 0.3  # Minimum confidence to accept a speaker change
+				speaker_change_threshold = 0.2  # More sensitive threshold for speaker changes
+				min_segment_duration = 1.0  # Minimum duration (seconds) before allowing speaker change
+				last_change_time = time.time()
 				
 				while st.session_state['run']:
 					try:
@@ -245,16 +270,27 @@ async def send_receive():
 
 						if result.get('message_type') == 'FinalTranscript':
 							text = result.get('text', '').strip()
-							# Get speaker information from the message
-							speaker_id = result.get('speaker_id', 'Unknown')
+							speaker_id = result.get('speaker_id') or result.get('speaker') or 'Unknown'
 							confidence = result.get('confidence', 0)
+							current_time = time.time()
 							
-							# Enhanced speaker detection logic
-							if confidence > speaker_change_threshold:
+							# Enhanced speaker change logic
+							time_since_last_change = current_time - last_change_time
+							should_change_speaker = (
+								confidence > speaker_change_threshold and
+								time_since_last_change >= min_segment_duration and
+								speaker_id != current_speaker
+							)
+							
+							if should_change_speaker:
+								print(f"Speaker change: {current_speaker} -> {speaker_id} "
+										f"(conf: {confidence}, time: {time_since_last_change:.1f}s)")
 								current_speaker = speaker_id
+								last_change_time = current_time
 							elif current_speaker is None:
 								current_speaker = speaker_id
-
+								last_change_time = current_time
+							
 							# Use the determined speaker
 							effective_speaker = current_speaker or speaker_id
 
