@@ -19,6 +19,10 @@ aai.settings.api_key = auth_key
 RECORDINGS_DIR = "recordings"
 os.makedirs(RECORDINGS_DIR, exist_ok=True)
 
+# Configure speaker settings
+MIN_SPEAKERS = 5  # Minimum number of speakers to detect
+MAX_SPEAKERS = 9  # Maximum number of speakers to detect
+
 # Initialize session state
 if 'text' not in st.session_state:
 	st.session_state['text'] = []
@@ -48,6 +52,7 @@ def save_audio_file(audio_chunks, base_filename="recording"):
 	# Save audio chunks to WAV file first
 	wav_filename = os.path.join(RECORDINGS_DIR, f"{base_filename}.wav")
 	m4a_filename = os.path.join(RECORDINGS_DIR, f"{base_filename}.m4a")
+	transcript_filename = os.path.join(RECORDINGS_DIR, f"{base_filename}_transcript.json")
 	
 	with wave.open(wav_filename, 'wb') as wf:
 		wf.setnchannels(CHANNELS)
@@ -59,8 +64,8 @@ def save_audio_file(audio_chunks, base_filename="recording"):
 	audio = AudioSegment.from_wav(wav_filename)
 	audio.export(m4a_filename, format="ipod")  # ipod format = M4A
 	
-	# Return both filenames
-	return wav_filename, m4a_filename
+	# Return all filenames
+	return wav_filename, m4a_filename, transcript_filename
 
 def process_with_speaker_diarization(audio_file):
 	try:
@@ -95,6 +100,18 @@ def start_listening():
 	st.session_state['run'] = True
 	st.session_state['speakers'] = {}
 
+def save_transcript(filename, messages, speaker_stats):
+	"""Save transcript with speaker information to JSON file"""
+	transcript_data = {
+		'messages': messages,
+		'speaker_statistics': speaker_stats,
+		'speaker_names': st.session_state['voice_names'],
+		'recording_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	}
+	
+	with open(filename, 'w') as f:
+		json.dump(transcript_data, f, indent=2)
+
 def stop_listening():
 	st.session_state['run'] = False
 	if st.session_state['audio_chunks']:
@@ -102,16 +119,19 @@ def stop_listening():
 			# Save audio to files
 			timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 			base_filename = f"recording_{timestamp}"
-			wav_file, m4a_file = save_audio_file(st.session_state['audio_chunks'], base_filename)
+			wav_file, m4a_file, transcript_file = save_audio_file(st.session_state['audio_chunks'], base_filename)
 			
 			# Process with speaker diarization using the WAV file
 			messages = process_with_speaker_diarization(wav_file)
 			# Update transcript with speaker information
 			st.session_state['text'].extend(messages)
 			
-			# Clean up WAV file but keep M4A
+			# Save transcript to JSON file
+			save_transcript(transcript_file, st.session_state['text'], st.session_state['speakers'])
+			
+			# Clean up WAV file but keep M4A and transcript
 			os.remove(wav_file)
-			st.success(f"Recording saved as {m4a_file}")
+			st.success(f"Recording saved as {m4a_file}\nTranscript saved as {transcript_file}")
 
 def get_next_letter():
 	"""Get next available letter (A, B, C, etc.)"""
@@ -152,7 +172,17 @@ def get_speaker_name(speaker_id):
 	
 	return f"Person {st.session_state['speaker_letters'][speaker_id]}"
 
-st.title('Real-time Voice Recognition')
+st.title('Code Blue: Real-time Voice Recognition')
+
+# Configuration sidebar
+with st.sidebar:
+	st.header("Configuration")
+	num_speakers = st.slider("Expected Number of Speakers", 
+							min_value=MIN_SPEAKERS, 
+							max_value=MAX_SPEAKERS, 
+							value=MIN_SPEAKERS,
+							help="Select the number of distinct voices you expect in the recording")
+	st.info(f"Currently configured to detect between {MIN_SPEAKERS} and {num_speakers} different speakers")
 
 # Recording controls
 col1, col2 = st.columns(2)
@@ -165,8 +195,14 @@ with col2:
 transcript_area = st.empty()
 speaker_info = st.empty()
 
-# Updated URL with real-time speaker diarization
-URL = "wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000&speaker_labels=true"
+# Updated URL with enhanced speaker diarization parameters and dynamic speaker count
+URL = (f"wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000"
+		f"&speaker_labels=true"
+		f"&diarization=true"
+		f"&speakers_expected={num_speakers}"
+		f"&diarization_min_speakers={MIN_SPEAKERS}"
+		f"&diarization_max_speakers={MAX_SPEAKERS}"
+		f"&speaker_threshold=0.3")
 
 headers = [
 	("Authorization", auth_key)
@@ -199,49 +235,65 @@ async def send_receive():
 					await asyncio.sleep(0.01)
 
 			async def receive():
+				current_speaker = None
+				speaker_change_threshold = 0.3  # Minimum confidence to accept a speaker change
+				
 				while st.session_state['run']:
 					try:
 						result_str = await _ws.recv()
 						result = json.loads(result_str)
 
 						if result.get('message_type') == 'FinalTranscript':
-							speaker_id = result.get('speaker', 'Unknown')
 							text = result.get('text', '').strip()
+							# Get speaker information from the message
+							speaker_id = result.get('speaker_id', 'Unknown')
+							confidence = result.get('confidence', 0)
+							
+							# Enhanced speaker detection logic
+							if confidence > speaker_change_threshold:
+								current_speaker = speaker_id
+							elif current_speaker is None:
+								current_speaker = speaker_id
+
+							# Use the determined speaker
+							effective_speaker = current_speaker or speaker_id
 
 							# Try to detect name if not already known
-							if speaker_id not in st.session_state['voice_names']:
-								detected_name = detect_name_from_text(text, speaker_id)
+							if effective_speaker not in st.session_state['voice_names']:
+								detected_name = detect_name_from_text(text, effective_speaker)
 								if detected_name:
-									current_letter = st.session_state['speaker_letters'].get(speaker_id, '?')
+									current_letter = st.session_state['speaker_letters'].get(effective_speaker, '?')
 									st.info(f"Person {current_letter} identified as {detected_name}")
 								
 							# Get or assign letter if needed
-							if speaker_id not in st.session_state['speaker_letters']:
-								st.session_state['speaker_letters'][speaker_id] = get_next_letter()
+							if effective_speaker not in st.session_state['speaker_letters']:
+								st.session_state['speaker_letters'][effective_speaker] = get_next_letter()
 
 							# Get current speaker name or letter designation
-							speaker_name = get_speaker_name(speaker_id)
+							speaker_name = get_speaker_name(effective_speaker)
 							
 							# Update speaker statistics
-							if speaker_id not in st.session_state['speakers']:
-								st.session_state['speakers'][speaker_id] = 0
-							st.session_state['speakers'][speaker_id] += len(text.split())
+							if effective_speaker not in st.session_state['speakers']:
+								st.session_state['speakers'][effective_speaker] = 0
+							st.session_state['speakers'][effective_speaker] += len(text.split())
 							
-							# Create message
+							# Create message with confidence score
 							message = {
 								'timestamp': datetime.now().strftime("%H:%M:%S"),
 								'speaker': speaker_name,
-								'text': text
+								'text': text,
+								'confidence': confidence
 							}
 							st.session_state['text'].append(message)
 							
-							# Update displays
+							# Update displays with confidence scores
 							messages_display = ""
 							for msg in st.session_state['text'][-10:]:  # Show last 10 messages
-								messages_display += f"[{msg['timestamp']}] **{msg['speaker']}:** {msg['text']}\n\n"
+								conf_str = f" (Confidence: {msg.get('confidence', 0):.2f})" if msg.get('confidence') else ""
+								messages_display += f"[{msg['timestamp']}] **{msg['speaker']}**{conf_str}: {msg['text']}\n\n"
 							transcript_area.markdown(messages_display)
 							
-							# Show identified speakers
+							# Show identified speakers with more details
 							info_text = "### Speakers in Conversation\n"
 							for spk_id, words in st.session_state['speakers'].items():
 								name = get_speaker_name(spk_id)
