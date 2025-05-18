@@ -69,6 +69,7 @@ cpr_timer_display = None
 cpr_start_phrases = [
 	"chest compressions initiated",
 	"i'm on compressions",
+	"initiating compressions",
 	"cpr started",
 	"starting compressions",
 	"begin cpr now",
@@ -98,8 +99,8 @@ async def cpr_timer(triggered_by_phrase=None):
 	for remaining in range(total_seconds, 0, -1):
 		mins, secs = divmod(remaining, 60)
 		timer_area.markdown(f"## ⏳ CPR Timer: {mins:02d}:{secs:02d}")
-		if remaining == 60 and triggered_by_phrase:
-			speak_text_streamlit("It's been one minute, next pulse check in one minute.")
+		if remaining == 90 and triggered_by_phrase:
+			speak_text_streamlit("30 seconds until next pulse check.")
 		await asyncio.sleep(1)
 	timer_area.markdown("## ⏰ 2 minutes up! Time for pulse check.")
 	del st.session_state['cpr_timer_display']
@@ -355,7 +356,7 @@ async def send_receive():
 							# Update displays with confidence scores
 							transcript_header.markdown('### Transcript')
 							messages_display = ""
-							for msg in st.session_state['text']:
+							for msg in st.session_state['text'][-10:]:  # Show last 10 messages
 								messages_display += f"[{msg['timestamp']}]: {msg['text']}\n\n"
 							transcript_area.markdown(messages_display)
 
