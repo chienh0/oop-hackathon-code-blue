@@ -362,11 +362,11 @@ async def send_receive():
 							st.session_state['text'].append(message)
 							
 							# Update displays with confidence scores
-							transcript_header.markdown('### Transcript')
+							transcript_header.markdown('### Live Transcript')
 							messages_display = ""
 							for msg in st.session_state['text'][-10:]:  # Show last 10 messages
-								messages_display += f"[{msg['timestamp']}]: {msg['text']}\n\n"
-							transcript_area.markdown(messages_display)
+								messages_display += f"<div style='font-size:1.5em;'>[{msg['timestamp']}]: {msg['text']}</div>\n"
+							transcript_area.markdown(messages_display, unsafe_allow_html=True)
 
 					except Exception as e:
 						print(f"Error in receive: {e}")
