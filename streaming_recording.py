@@ -353,21 +353,10 @@ async def send_receive():
 							
 							# Update displays with confidence scores
 							messages_display = ""
-							for msg in st.session_state['text'][-10:]:  # Show last 10 messages
+							for msg in st.session_state['text']:
 								messages_display += f"[{msg['timestamp']}]: {msg['text']}\n\n"
+							transcript_area.markdown('### Transcript')
 							transcript_area.markdown(messages_display)
-							
-							# Show identified speakers with more details
-							info_text = "### Speakers in Conversation\n"
-							for spk_id, words in st.session_state['speakers'].items():
-								name = get_speaker_name(spk_id)
-								info_text += f"{name}: {words} words spoken\n"
-							# Show detected events
-							if st.session_state['detected_events']:
-								info_text += "\n---\n### Detected Resuscitation Events\n"
-								for evt in st.session_state['detected_events'][-5:]:
-									info_text += f"[{evt['timestamp']}] **{evt['event']}**: '{evt['phrase']}' in '{evt['text']}'\n"
-							speaker_info.markdown(info_text)
 
 					except Exception as e:
 						print(f"Error in receive: {e}")
@@ -381,6 +370,13 @@ async def send_receive():
 if st.session_state['run']:
 	asyncio.run(send_receive())
 
-# Add a button to test the 1-minute announcement
-if st.button("Test Announcement"):
-	speak_text_streamlit("It's been one minute, next pulse check in one minute")
+# Move Detected Resuscitation Events to the sidebar
+with st.sidebar:
+	if st.session_state['detected_events']:
+		st.markdown('---\n### Detected Resuscitation Events')
+		for evt in st.session_state['detected_events'][-5:]:
+			st.markdown(f"[{evt['timestamp']}] **{evt['event']}**: '{evt['phrase']}' in '{evt['text']}'")
+
+# # Add a button to test the 1-minute announcement
+# if st.button("Test Announcement"):
+# 	speak_text_streamlit("It's been one minute, next pulse check in one minute")
