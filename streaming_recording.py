@@ -224,6 +224,7 @@ with col2:
 	stop_button = st.button('Stop Recording', on_click=stop_listening)
 
 # Display areas
+transcript_header = st.empty()
 transcript_area = st.empty()
 speaker_info = st.empty()
 
@@ -352,10 +353,10 @@ async def send_receive():
 							st.session_state['text'].append(message)
 							
 							# Update displays with confidence scores
+							transcript_header.markdown('### Transcript')
 							messages_display = ""
 							for msg in st.session_state['text']:
 								messages_display += f"[{msg['timestamp']}]: {msg['text']}\n\n"
-							transcript_area.markdown('### Transcript')
 							transcript_area.markdown(messages_display)
 
 					except Exception as e:
@@ -374,7 +375,7 @@ if st.session_state['run']:
 with st.sidebar:
 	if st.session_state['detected_events']:
 		st.markdown('---\n### Detected Resuscitation Events')
-		for evt in st.session_state['detected_events'][-5:]:
+		for evt in st.session_state['detected_events']:
 			st.markdown(f"[{evt['timestamp']}] **{evt['event']}**: '{evt['phrase']}' in '{evt['text']}'")
 
 # # Add a button to test the 1-minute announcement
