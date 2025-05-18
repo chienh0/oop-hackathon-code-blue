@@ -87,22 +87,21 @@ def cancel_cpr_timer():
 		del st.session_state['cpr_timer_display']
 
 async def cpr_timer(triggered_by_phrase=None):
-	# Create or get the timer display area
-	if 'cpr_timer_display' not in st.session_state:
-		st.session_state['cpr_timer_display'] = st.empty()
-	timer_area = st.session_state['cpr_timer_display']
+	with st.sidebar:
+		if 'cpr_timer_display' not in st.session_state:
+			st.session_state['cpr_timer_display'] = st.empty()
+		timer_area = st.session_state['cpr_timer_display']
+		# Show the trigger phrase if provided
+		if triggered_by_phrase:
+			st.markdown(f"**CPR Timer Triggered By:** '{triggered_by_phrase}'")
 	total_seconds = 120
 	for remaining in range(total_seconds, 0, -1):
 		mins, secs = divmod(remaining, 60)
 		timer_area.markdown(f"## ⏳ CPR Timer: {mins:02d}:{secs:02d}")
 		if remaining == 60 and triggered_by_phrase:
-			# Only speak if triggered by a CPR start phrase
 			speak_text_streamlit("It's been one minute, next pulse check in one minute.")
 		await asyncio.sleep(1)
 	timer_area.markdown("## ⏰ 2 minutes up! Time for pulse check.")
-	# Optionally, speak at 2 minutes
-	# speak_text_streamlit("2 minutes up! Time for pulse check.")
-	# Remove timer display from session state
 	del st.session_state['cpr_timer_display']
 
 def save_audio_file(audio_chunks, base_filename="recording"):
@@ -207,14 +206,14 @@ def speak_text_streamlit(text):
 st.title('Code Blue')
 
 # Configuration sidebar
-with st.sidebar:
-	st.header("Configuration")
-	num_speakers = st.slider("Expected Number of Speakers", 
-							min_value=MIN_SPEAKERS, 
-							max_value=MAX_SPEAKERS, 
-							value=MIN_SPEAKERS,
-							help="Select the number of distinct voices you expect in the recording")
-	st.info(f"Currently configured to detect between {MIN_SPEAKERS} and {MAX_SPEAKERS} different speakers")
+# with st.sidebar:
+# 	st.header("Configuration")
+# 	num_speakers = st.slider("Expected Number of Speakers", 
+# 							min_value=MIN_SPEAKERS, 
+# 							max_value=MAX_SPEAKERS, 
+# 							value=MIN_SPEAKERS,
+# 							help="Select the number of distinct voices you expect in the recording")
+# 	st.info(f"Currently configured to detect between {MIN_SPEAKERS} and {MAX_SPEAKERS} different speakers")
 
 # Recording controls
 col1, col2 = st.columns(2)
@@ -232,7 +231,7 @@ speaker_info = st.empty()
 URL = (f"wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000"
 		f"&speaker_labels=true"
 		f"&diarization=true"
-		f"&speakers_expected={num_speakers}"
+		# f"&speakers_expected={num_speakers}"
 		f"&diarization_min_speakers={MIN_SPEAKERS}"
 		f"&diarization_max_speakers={MAX_SPEAKERS}"
 		f"&speaker_threshold=0.2"
@@ -341,6 +340,7 @@ async def send_receive():
 									if event == 'CPR_START' and any(start_phrase in text.lower() for start_phrase in cpr_start_phrases):
 										print(f"CPR timer triggered by: {text}")
 										cancel_cpr_timer()
+										st.session_state['last_cpr_trigger_phrase'] = text  # Store the last trigger phrase
 										cpr_timer_task = asyncio.create_task(cpr_timer(triggered_by_phrase=text.lower()))
 
 							# Create message with confidence score
@@ -371,12 +371,22 @@ async def send_receive():
 if st.session_state['run']:
 	asyncio.run(send_receive())
 
-# Move Detected Resuscitation Events to the sidebar
+# Move Detected Resuscitation Events to the sidebar (always active, real-time)
 with st.sidebar:
+	# Detected Resuscitation Events first
 	if st.session_state['detected_events']:
 		st.markdown('---\n### Detected Resuscitation Events')
 		for evt in st.session_state['detected_events']:
 			st.markdown(f"[{evt['timestamp']}] **{evt['event']}**: '{evt['phrase']}' in '{evt['text']}'")
+	# CPR Timer (trigger phrase and timer display)
+	if 'cpr_timer_display' in st.session_state:
+		# Show the trigger phrase if provided (store in session state if needed)
+		if st.session_state.get('last_cpr_trigger_phrase'):
+			st.markdown(f"**CPR Timer Triggered By:** '{st.session_state['last_cpr_trigger_phrase']}'")
+	# Play Trigger Phrase button
+	if st.session_state.get('last_cpr_trigger_phrase'):
+		if st.button("🔊 Play Trigger Phrase"):
+			speak_text_streamlit(st.session_state['last_cpr_trigger_phrase'])
 
 # # Add a button to test the 1-minute announcement
 # if st.button("Test Announcement"):
