@@ -15,6 +15,7 @@ import time
 import yaml
 from gtts import gTTS
 import io
+from thefuzz import fuzz
 
 # Configure AssemblyAI
 aai.settings.api_key = auth_key
@@ -76,6 +77,8 @@ cpr_start_phrases = [
 	"compressions going",
 	"starting cycles now"
 ]
+
+FUZZY_THRESHOLD = 80  # Adjust as needed for sensitivity
 
 def cancel_cpr_timer():
 	global cpr_timer_task
@@ -329,7 +332,8 @@ async def send_receive():
 							# Event detection logic
 							detected = False
 							for phrase, event in utterance_to_event.items():
-								if phrase in text.lower():
+								score = fuzz.partial_ratio(phrase.lower(), text.lower())
+								if score >= FUZZY_THRESHOLD:
 									st.session_state['detected_events'].append({
 										'timestamp': datetime.now().strftime("%H:%M:%S"),
 										'event': event,
@@ -337,11 +341,11 @@ async def send_receive():
 										'text': text
 									})
 									detected = True
-									# CPR timer logic: trigger if any CPR start phrase is contained in the text
-									if event == 'CPR_START' and any(start_phrase in text.lower() for start_phrase in cpr_start_phrases):
+									# CPR timer logic (fuzzy match for CPR_START)
+									if event == 'CPR_START' and score >= FUZZY_THRESHOLD:
 										print(f"CPR timer triggered by: {text}")
 										cancel_cpr_timer()
-										st.session_state['last_cpr_trigger_phrase'] = text  # Store the last trigger phrase
+										st.session_state['last_cpr_trigger_phrase'] = text
 										cpr_timer_task = asyncio.create_task(cpr_timer(triggered_by_phrase=text.lower()))
 
 							# Create message with confidence score

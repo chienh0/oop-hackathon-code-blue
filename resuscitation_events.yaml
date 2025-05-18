@@ -8,6 +8,8 @@ CPR_START:
   - "I am starting compressions!"
   - "I am initiating compressions!"
   - "I'm initiating compressions!"
+  - "CPO started."
+  - "CPR start."
   - "CPR started."
   - "Starting compressions!"
   - "Begin CPR now."

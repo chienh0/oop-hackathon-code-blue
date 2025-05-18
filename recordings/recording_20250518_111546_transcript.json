@@ -1,0 +1,93 @@
+{
+  "messages": [
+    {
+      "timestamp": "11:14:44",
+      "speaker": "Person A",
+      "text": "If you need.",
+      "confidence": 0.16847670078277588
+    },
+    {
+      "timestamp": "11:14:49",
+      "speaker": "Person A",
+      "text": "So that we can put it in the deck.",
+      "confidence": 0.6429569125175476
+    },
+    {
+      "timestamp": "11:14:52",
+      "speaker": "Person A",
+      "text": "So you can actually.",
+      "confidence": 0.28775444626808167
+    },
+    {
+      "timestamp": "11:14:54",
+      "speaker": "Person A",
+      "text": "Want to show.",
+      "confidence": 0.4944119155406952
+    },
+    {
+      "timestamp": "11:14:56",
+      "speaker": "Person A",
+      "text": "Cpr started.",
+      "confidence": 0.25537633895874023
+    },
+    {
+      "timestamp": "11:14:57",
+      "speaker": "Person A",
+      "text": "I built it.",
+      "confidence": 0.4658377766609192
+    },
+    {
+      "timestamp": "11:15:06",
+      "speaker": "Person A",
+      "text": "That's all I was saying. Take a lot of the components that are here. Compression started. We can make the design like ourselves.",
+      "confidence": 0.48773643374443054
+    },
+    {
+      "timestamp": "11:15:08",
+      "speaker": "Person A",
+      "text": "Thanks.",
+      "confidence": 1.4064242350286804e-05
+    },
+    {
+      "timestamp": "11:15:14",
+      "speaker": "Person A",
+      "text": "On this one. Yeah. And then you can take the pieces that are important here.",
+      "confidence": 0.6322425603866577
+    },
+    {
+      "timestamp": "11:15:17",
+      "speaker": "Person A",
+      "text": "So I think that the timeline is really cool.",
+      "confidence": 0.6304420828819275
+    },
+    {
+      "timestamp": "11:15:21",
+      "speaker": "Person A",
+      "text": "That's actually valuable? Very much so.",
+      "confidence": 0.39546871185302734
+    },
+    {
+      "timestamp": "11:15:31",
+      "speaker": "Person A",
+      "text": "I like these key metrics.",
+      "confidence": 0.5305428504943848
+    },
+    {
+      "timestamp": "11:15:39",
+      "speaker": "Person A",
+      "text": "First impression. Time to first.",
+      "confidence": 0.4537351727485657
+    },
+    {
+      "timestamp": "11:15:42",
+      "speaker": "Person A",
+      "text": "Medication.",
+      "confidence": 0.033435411751270294
+    }
+  ],
+  "speaker_statistics": {
+    "Unknown": 89
+  },
+  "speaker_names": {},
+  "recording_date": "2025-05-18 11:15:47"
+}
