@@ -1,0 +1,137 @@
+{
+  "messages": [
+    {
+      "timestamp": "13:32:15",
+      "speaker": "Person A",
+      "text": "Remembering what happened, where and why could mean, could be the difference between life and death. Oh, my. God. Cameron. Cameron. Can I get some help in here? Grab a craft heart. I'm checking. His pole. There's no pull. He's ace of Cele on the monitor. I'm calling it code blue. Vendors here, Cpr.",
+      "confidence": 0.5610305070877075
+    },
+    {
+      "timestamp": "13:32:36",
+      "speaker": "Kayla",
+      "text": "Starting. I got airways. All right. Hey, guys, I'm Kayla. I'm your pa. I'm going to be the position leader today. What's going on, Nikki? Hey. So this is a 61 year old gentleman. He came in for chest pain. He's got a history. Of CaD, hypertension and hyperlipidemia. He just became unresponsive. Okay, great. And it looks like our rhythm is as sicily health airway oxygen is at 95%. Thank you. Can we draw up?",
+      "confidence": 0.5190481543540955
+    },
+    {
+      "timestamp": "13:32:38",
+      "speaker": "Kayla",
+      "text": "A milligram of epi, please.",
+      "confidence": 0.31263023614883423
+    },
+    {
+      "timestamp": "13:32:43",
+      "speaker": "Kayla",
+      "text": "Great. And let's attach some pads, all right?",
+      "confidence": 0.5438475608825684
+    },
+    {
+      "timestamp": "13:32:52",
+      "speaker": "Kayla",
+      "text": "Thank you. 1 episode the right AC thank you.",
+      "confidence": 0.5887262225151062
+    },
+    {
+      "timestamp": "13:32:59",
+      "speaker": "Kayla",
+      "text": "10 seconds until next pulse check. All right, it's been two minutes. Can I get a. Rhythm check.",
+      "confidence": 0.5678369998931885
+    },
+    {
+      "timestamp": "13:33:05",
+      "speaker": "Kayla",
+      "text": "He has a hole. He's normal. Sinus on the monitor. Great. We got him back.",
+      "confidence": 0.48984771966934204
+    },
+    {
+      "timestamp": "13:33:09",
+      "speaker": "Kayla",
+      "text": "So how do we do?",
+      "confidence": 0.5142448544502258
+    },
+    {
+      "timestamp": "13:33:29",
+      "speaker": "Kayla",
+      "text": "We can tell exactly how we did because we've mapped the actual audio from this exact from this recording to the actual key events that we care about. And on the left, we've. Actually identified. What are the performance metrics for this specific code blue? It was mapped directly. Against the 2020 American Heart association guideline for ACLS activation and cardiac arrest.",
+      "confidence": 0.5913922786712646
+    },
+    {
+      "timestamp": "13:33:49",
+      "speaker": "Kayla",
+      "text": "And that logic can be mapped to any well defined clinical workflow, but it works really well. In a high stress, high acuity situation where humans are emotional and stressed out and not perfect. At mapping all these things, at recording all these things as they happen in real time with good accuracy.",
+      "confidence": 0.6501521468162537
+    },
+    {
+      "timestamp": "13:33:56",
+      "speaker": "Kayla",
+      "text": "How do we want to sum that up?",
+      "confidence": 0.6341601014137268
+    },
+    {
+      "timestamp": "13:34:05",
+      "speaker": "Kayla",
+      "text": "Like the end of the presentation. So we've mapped this. It can apply to any workflow.",
+      "confidence": 0.6933400630950928
+    },
+    {
+      "timestamp": "13:34:10",
+      "speaker": "Kayla",
+      "text": "We built it against this, and it works really well for high stake scenarios.",
+      "confidence": 0.6497544050216675
+    },
+    {
+      "timestamp": "13:34:13",
+      "speaker": "Kayla",
+      "text": "I guess you can close it with home.",
+      "confidence": 0.2071838527917862
+    },
+    {
+      "timestamp": "13:34:33",
+      "speaker": "Kayla",
+      "text": "A little deeper so people instinctively know. Sure. Yeah. Okay, so it can be mapped to any high. Stake scenario or sorry. This logic could be mapped to any well defined clinical workflow, but it works really well in high stakes, high stress scenarios because we all know that humans are em.",
+      "confidence": 0.6158933043479919
+    },
+    {
+      "timestamp": "13:34:40",
+      "speaker": "Kayla",
+      "text": "Emotional and easily distracted and aren't that great at remembering what happened during those situations.",
+      "confidence": 0.5193997025489807
+    },
+    {
+      "timestamp": "13:34:48",
+      "speaker": "Kayla",
+      "text": "I'm already right out of defense resulted out in here. Just to give some more context. Of how what we're actually doing.",
+      "confidence": 0.49147289991378784
+    },
+    {
+      "timestamp": "13:34:56",
+      "speaker": "Kayla",
+      "text": "If you feel like it's awkward, you feel, like, happy to take your question. Yeah, that's. True.",
+      "confidence": 0.490704745054245
+    },
+    {
+      "timestamp": "13:35:02",
+      "speaker": "Kayla",
+      "text": "Do we want to go through? Just like if you go through the action boxes doing it, doing. One of those without.",
+      "confidence": 0.5486258864402771
+    },
+    {
+      "timestamp": "13:35:11",
+      "speaker": "Kayla",
+      "text": "Recording just so we can have that go send that to my API. That can generate the actual. Thing that goes here. No. Does that make sense?",
+      "confidence": 0.6617652177810669
+    },
+    {
+      "timestamp": "13:35:14",
+      "speaker": "Kayla",
+      "text": "Or we can just use what's already. We can use this recording.",
+      "confidence": 0.4253345727920532
+    }
+  ],
+  "speaker_statistics": {
+    "Unknown": 518
+  },
+  "speaker_names": {
+    "Unknown": "Kayla"
+  },
+  "recording_date": "2025-05-18 13:35:16"
+}

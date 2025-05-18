@@ -2,15 +2,19 @@
 # Maps event types to their corresponding utterances
 
 CPR_START:
-  - "Chest compressions initiated."
-  - "I'm on compressions!"
-  - "I'm starting compressions!"
-  - "I'm initiating compressions!"
-  - "CPR started."
-  - "Starting compressions!"
-  - "Begin CPR now."
-  - "Compressions going!"
-  - "Starting cycles now."
+  - "Chest compressions initiated"
+  - "I'm on compressions"
+  - "I'm starting compressions"
+  - "I'm initiating compressions"
+  - "cpr initiated"
+  - "start cpr"
+  - "starting cpr"
+  - "cpr started"
+  - "cpr start"
+  - "Starting compressions"
+  - "Begin CPR now"
+  - "Compressions going"
+  - "Starting cycles now"
 
 # CPR_STOP:
 #   - "Pausing compressions."
