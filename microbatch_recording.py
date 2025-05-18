@@ -2,98 +2,114 @@ import streamlit as st
 import pyaudio
 import wave
 import os
-import time
+import asyncio
+import websockets
+import base64
 import json
-from datetime import datetime
 import assemblyai as aai
+from configure import auth_key
+from datetime import datetime
 
-# Configure AssemblyAI
-# Replace with your actual API key or use your configure.py
-AUDIO_API_KEY = "YOUR_ASSEMBLYAI_API_KEY"
-aai.settings.api_key = AUDIO_API_KEY
+# AssemblyAI config
+aai.settings.api_key = auth_key
+WS_URL = f"wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000"
+HEADERS = [("Authorization", auth_key)]
 
 RECORDINGS_DIR = "recordings"
 os.makedirs(RECORDINGS_DIR, exist_ok=True)
 
-CHUNK = 1024
+FRAMES_PER_BUFFER = 3200
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
-BATCH_DURATION = 3  # seconds
 
 if 'recording' not in st.session_state:
     st.session_state.recording = False
-    st.session_state.transcripts = []
-    st.session_state.speaker_map = {}
+    st.session_state.audio_buffer = []
+    st.session_state.sentence_chunks = []
+    st.session_state.current_transcript = ""
 
-def record_batch(batch_num):
+def save_audio_chunk(audio_frames, chunk_num):
+    filename = os.path.join(RECORDINGS_DIR, f"sentence_chunk_{chunk_num}_{int(datetime.now().timestamp())}.wav")
+    with wave.open(filename, 'wb') as wf:
+        wf.setnchannels(CHANNELS)
+        wf.setsampwidth(pyaudio.get_sample_size(FORMAT))
+        wf.setframerate(RATE)
+        wf.writeframes(b''.join(audio_frames))
+    return filename
+
+async def transcribe_and_chunk():
     p = pyaudio.PyAudio()
-    stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
-    frames = []
-    for _ in range(int(RATE / CHUNK * BATCH_DURATION)):
-        if not st.session_state.recording:
-            break
-        data = stream.read(CHUNK)
-        frames.append(data)
+    stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=FRAMES_PER_BUFFER)
+    st.session_state.audio_buffer = []
+    st.session_state.sentence_chunks = []
+    st.session_state.current_transcript = ""
+    chunk_num = 1
+
+    async with websockets.connect(
+        WS_URL,
+        ping_interval=5,
+        ping_timeout=20,
+        extra_headers=HEADERS
+    ) as ws:
+        async def send_audio():
+            while st.session_state.recording:
+                data = stream.read(FRAMES_PER_BUFFER)
+                st.session_state.audio_buffer.append(data)
+                data_b64 = base64.b64encode(data).decode("utf-8")
+                await ws.send(json.dumps({"audio_data": data_b64}))
+                await asyncio.sleep(0.01)
+
+        async def receive_transcript():
+            nonlocal chunk_num
+            sentence_endings = (".", "?", "!")
+            while st.session_state.recording:
+                try:
+                    result_str = await ws.recv()
+                    result = json.loads(result_str)
+                    if result.get('message_type') == 'FinalTranscript':
+                        text = result.get('text', '').strip()
+                        st.session_state.current_transcript += (" " if st.session_state.current_transcript else "") + text
+                        # Check for sentence ending
+                        if text and text[-1] in sentence_endings:
+                            # Save audio chunk and transcript
+                            filename = save_audio_chunk(st.session_state.audio_buffer, chunk_num)
+                            st.session_state.sentence_chunks.append({
+                                "audio_file": filename,
+                                "transcript": st.session_state.current_transcript.strip()
+                            })
+                            st.session_state.audio_buffer = []
+                            st.session_state.current_transcript = ""
+                            st.info(f"Saved chunk {chunk_num}: {filename}")
+                            chunk_num += 1
+                except Exception as e:
+                    print(f"Error in receive: {e}")
+                    break
+
+        await asyncio.gather(send_audio(), receive_transcript())
     stream.stop_stream()
     stream.close()
     p.terminate()
-    filename = os.path.join(RECORDINGS_DIR, f"batch_{batch_num}_{int(time.time())}.wav")
-    with wave.open(filename, 'wb') as wf:
-        wf.setnchannels(CHANNELS)
-        wf.setsampwidth(p.get_sample_size(FORMAT))
-        wf.setframerate(RATE)
-        wf.writeframes(b''.join(frames))
-    return filename
 
-def process_batch(audio_file, batch_num):
-    config = aai.TranscriptionConfig(
-        speaker_labels=True,
-        diarization=True,
-        speakers_expected=5,  # or your expected number
-        min_speakers=5,
-        max_speakers=9
-    )
-    transcriber = aai.Transcriber()
-    transcript = transcriber.transcribe(audio_file, config=config)
-    messages = []
-    for utterance in transcript.utterances:
-        speaker = f"Speaker {utterance.speaker}"
-        messages.append({
-            "batch": batch_num,
-            "timestamp": datetime.now().strftime("%H:%M:%S"),
-            "speaker": speaker,
-            "text": utterance.text
-        })
-    return messages
-
-def start_microbatch():
+def start_sentence_chunking():
     st.session_state.recording = True
-    st.session_state.transcripts = []
-    batch_num = 1
-    while st.session_state.recording:
-        st.info(f"Recording batch {batch_num}...")
-        audio_file = record_batch(batch_num)
-        st.info(f"Processing batch {batch_num}...")
-        messages = process_batch(audio_file, batch_num)
-        st.session_state.transcripts.extend(messages)
-        os.remove(audio_file)
-        batch_num += 1
+    asyncio.run(transcribe_and_chunk())
 
-def stop_microbatch():
+def stop_sentence_chunking():
     st.session_state.recording = False
 
-st.title("Micro-Batch Speaker Diarization (3s Batches)")
+st.title("Audio Chunking by Sentence End")
 
 col1, col2 = st.columns(2)
 with col1:
     if not st.session_state.recording:
-        st.button("Start Microbatch Recording", on_click=start_microbatch)
+        st.button("Start Sentence Chunking", on_click=start_sentence_chunking)
 with col2:
     if st.session_state.recording:
-        st.button("Stop", on_click=stop_microbatch)
+        st.button("Stop", on_click=stop_sentence_chunking)
 
-if st.session_state.transcripts:
-    st.subheader("Transcript")
-    for msg in st.session_state.transcripts:
-        st.markdown(f"[Batch {msg['batch']}] **{msg['speaker']}**: {msg['text']}") 
+if st.session_state.sentence_chunks:
+    st.subheader("Sentence Chunks")
+    for i, chunk in enumerate(st.session_state.sentence_chunks, 1):
+        st.write(f"Chunk {i}: {chunk['audio_file']}")
+        st.write(f"Transcript: {chunk['transcript']}") 
