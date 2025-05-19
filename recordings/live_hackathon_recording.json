@@ -1,137 +1,225 @@
 {
   "messages": [
     {
-      "timestamp": "13:32:15",
+      "timestamp": "15:57:51",
       "speaker": "Person A",
-      "text": "Remembering what happened, where and why could mean, could be the difference between life and death. Oh, my. God. Cameron. Cameron. Can I get some help in here? Grab a craft heart. I'm checking. His pole. There's no pull. He's ace of Cele on the monitor. I'm calling it code blue. Vendors here, Cpr.",
-      "confidence": 0.5610305070877075
+      "text": "Yes. Oh, my God.",
+      "confidence": 0.590908944606781
     },
     {
-      "timestamp": "13:32:36",
-      "speaker": "Kayla",
-      "text": "Starting. I got airways. All right. Hey, guys, I'm Kayla. I'm your pa. I'm going to be the position leader today. What's going on, Nikki? Hey. So this is a 61 year old gentleman. He came in for chest pain. He's got a history. Of CaD, hypertension and hyperlipidemia. He just became unresponsive. Okay, great. And it looks like our rhythm is as sicily health airway oxygen is at 95%. Thank you. Can we draw up?",
-      "confidence": 0.5190481543540955
+      "timestamp": "15:57:53",
+      "speaker": "Person A",
+      "text": "Cameron.",
+      "confidence": 8.002223950143161e-08
     },
     {
-      "timestamp": "13:32:38",
-      "speaker": "Kayla",
-      "text": "A milligram of epi, please.",
-      "confidence": 0.31263023614883423
+      "timestamp": "15:58:01",
+      "speaker": "Person A",
+      "text": "Cameron. Cameron. Can someone get the crash card? He doesn't have a poll. She's asically on the monitor.",
+      "confidence": 0.5540001392364502
     },
     {
-      "timestamp": "13:32:43",
-      "speaker": "Kayla",
-      "text": "Great. And let's attach some pads, all right?",
-      "confidence": 0.5438475608825684
+      "timestamp": "15:58:20",
+      "speaker": "Person A",
+      "text": "Starting. Code blue. Initiation. Ppr started. Men nurse here. I'm era white. Hey, guys, I'm Kayla. I'm your physician leader. Nikki, what's going on? Hey, this is a 61 year old male. He came in for a chest pain, but he has history of dad. Hyper lipidemia and hypertension. He just passed out.",
+      "confidence": 0.5264955163002014
     },
     {
-      "timestamp": "13:32:52",
-      "speaker": "Kayla",
-      "text": "Thank you. 1 episode the right AC thank you.",
-      "confidence": 0.5887262225151062
+      "timestamp": "15:58:25",
+      "speaker": "Person A",
+      "text": "All right, let's attach some pads because we have asystoli.",
+      "confidence": 0.45270970463752747
     },
     {
-      "timestamp": "13:32:59",
-      "speaker": "Kayla",
-      "text": "10 seconds until next pulse check. All right, it's been two minutes. Can I get a. Rhythm check.",
-      "confidence": 0.5678369998931885
+      "timestamp": "15:58:28",
+      "speaker": "Person A",
+      "text": "Can you draw up 1 epi roll Hill, please?",
+      "confidence": 0.2364506721496582
     },
     {
-      "timestamp": "13:33:05",
-      "speaker": "Kayla",
-      "text": "He has a hole. He's normal. Sinus on the monitor. Great. We got him back.",
-      "confidence": 0.48984771966934204
+      "timestamp": "15:58:33",
+      "speaker": "Person A",
+      "text": "Thank you. On the right. All right, great. And how's our airway?",
+      "confidence": 0.6128985285758972
     },
     {
-      "timestamp": "13:33:09",
-      "speaker": "Kayla",
-      "text": "So how do we do?",
-      "confidence": 0.5142448544502258
+      "timestamp": "15:58:43",
+      "speaker": "Person A",
+      "text": "95% oxygen. All right, great. Seconds until next health check. Okay, it's been two minutes. Since our last pulse. Jack, can we get a rhythm read?",
+      "confidence": 0.5648729205131531
     },
     {
-      "timestamp": "13:33:29",
-      "speaker": "Kayla",
-      "text": "We can tell exactly how we did because we've mapped the actual audio from this exact from this recording to the actual key events that we care about. And on the left, we've. Actually identified. What are the performance metrics for this specific code blue? It was mapped directly. Against the 2020 American Heart association guideline for ACLS activation and cardiac arrest.",
-      "confidence": 0.5913922786712646
+      "timestamp": "15:58:47",
+      "speaker": "Person A",
+      "text": "He has a pulse. He's normal. Sinus rhythm on the monitor. Whoo.",
+      "confidence": 0.17818167805671692
     },
     {
-      "timestamp": "13:33:49",
-      "speaker": "Kayla",
-      "text": "And that logic can be mapped to any well defined clinical workflow, but it works really well. In a high stress, high acuity situation where humans are emotional and stressed out and not perfect. At mapping all these things, at recording all these things as they happen in real time with good accuracy.",
-      "confidence": 0.6501521468162537
+      "timestamp": "15:58:56",
+      "speaker": "Person A",
+      "text": "How did we do?",
+      "confidence": 0.5794063210487366
     },
     {
-      "timestamp": "13:33:56",
-      "speaker": "Kayla",
-      "text": "How do we want to sum that up?",
-      "confidence": 0.6341601014137268
+      "timestamp": "15:59:16",
+      "speaker": "Person A",
+      "text": "All of that, right? Thankfully, we were. You can see that we have recorded the entire process and. We've actually mapped that out to specific events that happened during the code blue, which allows us to actually analyze as you settled it. So in real time, we care about very specific things. We map this whole process to the 2000.",
+      "confidence": 0.6595994830131531
     },
     {
-      "timestamp": "13:34:05",
-      "speaker": "Kayla",
-      "text": "Like the end of the presentation. So we've mapped this. It can apply to any workflow.",
-      "confidence": 0.6933400630950928
+      "timestamp": "15:59:31",
+      "speaker": "Person A",
+      "text": "And 20 AHA ACLS guidelines. This could be mapped to any very well defined clinical workflow. So thanks. Stroke think sepsis, things stem everything that needs to be accurate, recorded and very systemicized.",
+      "confidence": 0.577131986618042
     },
     {
-      "timestamp": "13:34:10",
-      "speaker": "Kayla",
-      "text": "We built it against this, and it works really well for high stake scenarios.",
-      "confidence": 0.6497544050216675
+      "timestamp": "15:59:34",
+      "speaker": "Person A",
+      "text": "So thanks for checking out our copilot.",
+      "confidence": 0.1585761457681656
     },
     {
-      "timestamp": "13:34:13",
-      "speaker": "Kayla",
-      "text": "I guess you can close it with home.",
-      "confidence": 0.2071838527917862
+      "timestamp": "15:59:40",
+      "speaker": "Person A",
+      "text": "Any questions?",
+      "confidence": 0.36421260237693787
     },
     {
-      "timestamp": "13:34:33",
-      "speaker": "Kayla",
-      "text": "A little deeper so people instinctively know. Sure. Yeah. Okay, so it can be mapped to any high. Stake scenario or sorry. This logic could be mapped to any well defined clinical workflow, but it works really well in high stakes, high stress scenarios because we all know that humans are em.",
-      "confidence": 0.6158933043479919
+      "timestamp": "15:59:46",
+      "speaker": "Person A",
+      "text": "Add a best medical drama award.",
+      "confidence": 0.4986085891723633
     },
     {
-      "timestamp": "13:34:40",
-      "speaker": "Kayla",
-      "text": "Emotional and easily distracted and aren't that great at remembering what happened during those situations.",
-      "confidence": 0.5193997025489807
+      "timestamp": "15:59:54",
+      "speaker": "Person A",
+      "text": "Any questions? My question is, why hasn't someone done this yet? We just did.",
+      "confidence": 0.6330088973045349
     },
     {
-      "timestamp": "13:34:48",
-      "speaker": "Kayla",
-      "text": "I'm already right out of defense resulted out in here. Just to give some more context. Of how what we're actually doing.",
-      "confidence": 0.49147289991378784
+      "timestamp": "16:00:02",
+      "speaker": "Person A",
+      "text": "This seems like one of the most obvious use cases for and it doesn't even have to be AI. It doesn't seem like.",
+      "confidence": 0.5104642510414124
     },
     {
-      "timestamp": "13:34:56",
-      "speaker": "Kayla",
-      "text": "If you feel like it's awkward, you feel, like, happy to take your question. Yeah, that's. True.",
-      "confidence": 0.490704745054245
+      "timestamp": "16:00:16",
+      "speaker": "Person A",
+      "text": "Is there some cultural technical reason that you guys kind of haven't put on yet? So. The way that EHR is built makes it very difficult to track system to system, and the way they build it in between each facility is different.",
+      "confidence": 0.6935452222824097
     },
     {
-      "timestamp": "13:35:02",
-      "speaker": "Kayla",
-      "text": "Do we want to go through? Just like if you go through the action boxes doing it, doing. One of those without.",
-      "confidence": 0.5486258864402771
+      "timestamp": "16:00:27",
+      "speaker": "Person A",
+      "text": "Why it hasn't been added onto an AI scribe yet. We actually ran into a lot. Of problems when we were mapping out. There's so many different variations to it. This is a very concise, honestly.",
+      "confidence": 0.5534902811050415
     },
     {
-      "timestamp": "13:35:11",
-      "speaker": "Kayla",
-      "text": "Recording just so we can have that go send that to my API. That can generate the actual. Thing that goes here. No. Does that make sense?",
-      "confidence": 0.6617652177810669
+      "timestamp": "16:00:29",
+      "speaker": "Person A",
+      "text": "There are micro workflows within.",
+      "confidence": 1.7759561160346493e-05
     },
     {
-      "timestamp": "13:35:14",
-      "speaker": "Kayla",
-      "text": "Or we can just use what's already. We can use this recording.",
-      "confidence": 0.4253345727920532
+      "timestamp": "16:00:35",
+      "speaker": "Person A",
+      "text": "A greater code blue workflow as well. So lots of nuance and lots of time to get it right.",
+      "confidence": 0.5113874077796936
+    },
+    {
+      "timestamp": "16:00:49",
+      "speaker": "Person A",
+      "text": "But like, she mentioned the semicode. Honestly, I see it for, like, c sections. I see it. In. Or I see it in delivering a baby. Very ten five time baked recordings.",
+      "confidence": 0.665976881980896
+    },
+    {
+      "timestamp": "16:00:52",
+      "speaker": "Person A",
+      "text": "All right. Any other questions?",
+      "confidence": 0.5779482126235962
+    },
+    {
+      "timestamp": "16:00:56",
+      "speaker": "Person A",
+      "text": "Did you say that it was just a recorder or it would provide guidance.",
+      "confidence": 0.6111640930175781
+    },
+    {
+      "timestamp": "16:01:16",
+      "speaker": "Person A",
+      "text": "And intervention. The goal is guidance, taking over the recorders like the easiest go in. But someone to help copilot with a team lead is also helpful because in regards to rural hospitals you have pas leading the codes, not an actual physician. You have a tv monitor within test fit.",
+      "confidence": 0.6099961400032043
+    },
+    {
+      "timestamp": "16:01:36",
+      "speaker": "Person A",
+      "text": "Touch on that from the technical side of things as well. A lot of this, again, the difficulty is one differentiating voice. So, like ascribing a particular role to a particular person. And then as that code evolves, we're looking and referencing that guideline so it's a look back to say, hey. You administered this medication twice. You're now deviating from protocol, but we know that medicine is fuzzy, so we need to give the.",
+      "confidence": 0.5852734446525574
+    },
+    {
+      "timestamp": "16:01:54",
+      "speaker": "Person A",
+      "text": "Clinical team and empower them to make the decisions they need to make, but also notify them that they're deviating from whatever the standard operating procedure would be. And in real life. The recorder role not only documents, but also gives real time feedback, like the timer. Yes, we will eat.",
+      "confidence": 0.6161037683486938
+    },
+    {
+      "timestamp": "16:02:02",
+      "speaker": "Person A",
+      "text": "Work.",
+      "confidence": 0.013825369998812675
+    },
+    {
+      "timestamp": "16:02:15",
+      "speaker": "Person A",
+      "text": "Teams we're presenting. You're using the Google model at some point just lacking or. Anything. That's what the Google team does.",
+      "confidence": 0.48424211144447327
+    },
+    {
+      "timestamp": "16:02:29",
+      "speaker": "Person A",
+      "text": "Hello. We are team drive health. And unlike all these other amazing teams who are going to get destroyed by Hipaa, we have entirely avoided.",
+      "confidence": 0.5465106964111328
+    },
+    {
+      "timestamp": "16:02:36",
+      "speaker": "Person A",
+      "text": "Section 2230. So here is, gentlemen. Starts off.",
+      "confidence": 0.5149620771408081
+    },
+    {
+      "timestamp": "16:02:47",
+      "speaker": "Person A",
+      "text": "Social media.",
+      "confidence": 0.21475189924240112
+    },
+    {
+      "timestamp": "16:02:54",
+      "speaker": "Person A",
+      "text": "And.",
+      "confidence": 0.10195710510015488
+    },
+    {
+      "timestamp": "16:02:56",
+      "speaker": "Person A",
+      "text": "Every time.",
+      "confidence": 0.2226075530052185
+    },
+    {
+      "timestamp": "16:03:08",
+      "speaker": "Person A",
+      "text": "Emails and platforms and.",
+      "confidence": 0.603225827217102
+    },
+    {
+      "timestamp": "16:03:11",
+      "speaker": "Person A",
+      "text": "It's pretty much the same information except the internal search.",
+      "confidence": 0.2923226058483124
     }
   ],
   "speaker_statistics": {
-    "Unknown": 518
+    "Unknown": 699
   },
-  "speaker_names": {
-    "Unknown": "Kayla"
-  },
-  "recording_date": "2025-05-18 13:35:16"
+  "speaker_names": {},
+  "recording_date": "2025-05-18 16:03:14"
 }

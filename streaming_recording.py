@@ -211,7 +211,7 @@ def speak_text_streamlit(text):
 	fp.seek(0)
 	st.audio(fp, format='audio/mp3')
 
-st.title('Code Blue Co-pilot')
+st.title('Code Blue Co-Pilot')
 
 # Configuration sidebar
 # with st.sidebar:
